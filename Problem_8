@@ -1,0 +1,20 @@
+QUESTION:::
+Given a stream of elements too large to store in memory, pick a random element from the stream with uniform probability.
+
+-------------------------------------**********************************************-----------------------------------------
+
+SOLUTION:::
+
+import random
+def pick(stream):
+    random_element = None
+    for i, j in enumerate(stream):
+        if i == 0:
+            random_ele = j
+        elif random.randint(1, i + 1) == 1:
+            random_ele = j
+    return random_ele
+stream= [3, 4, 7, 3, 8, 9, 10, 45, 23]
+print(pick(stream))
+
+
