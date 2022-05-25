@@ -1,0 +1,51 @@
+QUESTION:::
+
+Given a string of round, curly, and square open and closing brackets, return whether the brackets are balanced (well-formed).
+For example, given the string "([])[]({})", you should return true.
+Given the string "([)]" or "((()", you should return false.
+
+-----------------------------------------------------**************************************---------------------------------------------------------
+
+SOLUTION::::
+
+def balancedBrackets(s):
+    stack = []
+    #checking if expression exists or not
+    if len(s) == 0:
+        return False
+        
+    #checking the expr wheather it is opening bracket or not 
+    #if opening bracket then appending(push) it to the stack
+    for char in s:
+        if char in ["(","{","["]:
+            stack.append(char)
+            
+        #else if stack is still empty which means brackets are not balanced 
+        else:
+            if len(stack) == 0:
+                return False
+                
+            #if stack is not empty popping the character and checking with the char(s)
+            #checking every individual bracket and if matches returning true
+            curr_char = stack.pop()
+            if curr_char == ")" and char == "(":
+                return True
+            if curr_char == "}" and char == "{":
+                return True
+            if curr_char == "]" and char == "[":
+                return True
+                
+    #At end checking the stack, if it empty balanced brakets else not         
+    if len(stack) == 0:
+        return True
+    else:
+        return False
+            
+if __name__ == "__main__":
+    s = "{[]}()"
+ 
+    # Function call
+    if balancedBrackets(s):
+        print("Balanced")
+    else:
+        print("Not Balanced")
