@@ -27,7 +27,7 @@ def editDistance(str1, str2, m, n):
         return editDistance(str1, str2, m-1, n-1)
     return 1 + min(editDistance(str1, str2, m, n-1),    # Insert
                    editDistance(str1, str2, m-1, n),    # Remove
-                   editDistance(str1, str2, m-1, n-1)    # Replace
+                   editDistance(str1, str2, m-1, n-1)    # substitute
                    )
  
 str1 = "kitten"
