@@ -1,0 +1,22 @@
+QUESTION:::
+
+Given a string, write a Python program to check if that string is Pangram or not. A pangram is a sentence containing every letter in the English Alphabet.
+Examples:
+Input : The quick brown fox jumps over the lazy dog
+Output : Yes
+-----------------------------------------------*****************************************************-------------------------------------------------
+
+SOLUTION::
+
+import string
+  
+alphabet = set(string.ascii_lowercase)
+  
+def ispangram(string):
+    return set(string.lower()) >= alphabet
+      
+string = "The quick brown fox jumps over the lazy dog"
+if(ispangram(string) == True):
+    print("Yes")
+else:
+    print("No")
