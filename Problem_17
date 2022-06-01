@@ -1,0 +1,36 @@
+QUESTION::
+
+Given a string, find the palindrome that can be made by inserting the fewest number of characters as possible anywhere in the word. If there is more than 
+one palindrome of minimum lengtyh that can be made,return the lexicographically earliest one(the first one alphabetically).
+For example, given the string "race", you should return "ecarace", since we can add three letters to it(which is smallest amount to make a palindrome)
+
+-----------------------------------------------------------***********************************---------------------------------------------
+
+SOLUTION:::
+
+import sys
+def minInsertions(str, l, h):
+ 
+    # Base Case
+    if (l > h):
+        return sys.maxsize
+    if (l == h):
+        return 0
+    if (l == h - 1):
+        if(str[l] == str[h]):
+            return 0
+        else:
+            return 1
+            
+    if(str[l] == str[h]):
+        return minInsertions(str, l + 1, h - 1)
+    else:
+        return (min(minInsertions(str, l, h - 1),
+                    minInsertions(str, l + 1, h)) + 1)
+ 
+ 
+if __name__ == "__main__":
+     
+    str = "google"
+    print(findMinInsertions(str, 0, len(str) - 1))
+ 
