@@ -1,0 +1,28 @@
+QUESTION:::
+
+Given an array consisting of the cost of toys. Given an integer K depicting the amount of money available to purchase toys.
+Write a program to find the maximum number of toys one can buy with the amount K. 
+
+-------------------------------------------------------***************************************----------------------------------------------------
+
+SOLUTIION:::
+
+def maximumToys(cost, N, K):
+    count = 0
+    sum = 0
+    
+    cost.sort(reverse = False)
+    for i in range(0, N, 1):
+        if (sum+cost[i] <= K):
+            sum = sum + cost[i]
+            count += 1
+     
+    return count
+ 
+# Driver Code
+if __name__ == '__main__':
+    K = 50
+    cost = [1, 12, 5, 111, 200,1000, 10, 9, 12, 15]
+    N = len(cost)
+ 
+    print(maximumToys(cost, N, K))
