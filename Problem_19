@@ -1,0 +1,67 @@
+QUESTION:::
+
+Given the root to a binary search tree find the second largest node in the tree.
+--------------------------------------------------**************************************************------------------------------------------
+
+SOLUTION::
+
+class Node:
+    def __init__(self, data):
+        self.key = data
+        self.left = None
+        self.right = None
+        
+def secondLargestEle(root, c):
+     
+    # Base conditions
+    if root == None or c[0] >= 2:
+        return
+ 
+    # reverse inorder traversal
+    secondLargestEle(root.right, c)
+ 
+    # Incrementing visited nodes
+    c[0] += 1
+    if c[0] == 2:
+        print("2nd largest element is",
+                              root.key)
+        return
+ 
+    # Recur for left subtree
+    secondLargestEle(root.left, c)
+ 
+# Function to find 2nd largest element
+def secondLargest(root):
+    c = [0]
+ 
+    # Note that c is passed by reference
+    secondLargestEle(root, c)
+ 
+# insert function
+def insert(node, key):
+     
+    # If the tree is empty, return a new node
+    if node == None:
+        return Node(key)
+ 
+    # if key is less than node.key(root) then go for left side
+    if key < node.key:
+        node.left = insert(node.left, key)
+    # if key is less than node.key(root) then go for right side
+    elif key > node.key:
+        node.right = insert(node.right, key)
+    return node
+ 
+# Driver Code
+if __name__ == '__main__':
+    
+    root = None
+    root = insert(root, 50)
+    insert(root, 30)
+    insert(root, 20)
+    insert(root, 40)
+    insert(root, 70)
+    insert(root, 60)
+    insert(root, 80)
+ 
+    secondLargest(root)
