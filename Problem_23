@@ -1,0 +1,89 @@
+QUESTION ::
+
+We can determine how "out of order" an array A is by counting the number of inversions it has. Two elements A[i] and A[j] form an inversion 
+if A[i] > A[j] but i < j. That is, a smaller element appears after a larger element.
+Given an array, count the number of inversions it has. Do this faster than O(N^2) time.
+You may assume each element in the array is distinct.
+For example, a sorted list has zero inversions. The array [2, 4, 1, 3, 5] has three inversions: (2, 1), (4, 1), and (4, 3). 
+The array [5, 4, 3, 2, 1] has ten inversions: every distinct pair forms an inversion.
+----------------------------------------------------------------************************************************-----------------------------------------
+
+
+SOLUTION ::
+
+import java.io.*;
+import java.util.*;
+
+public class Main
+{
+    public static long merge(int[] arr,int start,int end){
+        int mid = (start+end)/2;
+        int len = (end-start+1);
+        int[] tempArray = new int[len];
+        int i = start;
+        int j = mid+1;
+        int index = 0;
+        long count = 0;
+        
+        while(i<=mid && j<=end){
+            if(arr[i]<=arr[j]){
+                tempArray[index] = arr[i];
+                index++;
+                i++;
+            }
+            else{
+                count += (mid-i+1);
+                tempArray[index] = arr[j];
+                index++;
+                j++;
+            }
+        }
+        
+        while(i<=mid){
+            tempArray[index] = arr[i];
+            index++;
+            i++;
+        }
+        
+        while(j<=end){
+            tempArray[index] = arr[j];
+            index++;
+            j++;
+        }
+        
+        for(int k=0;k<len;k++){
+            arr[start+k] = tempArray[k];
+        }
+        return count;
+    }
+    
+    public static long getInversions(int[] arr,int start,int end){
+        
+        if(start>=end){
+            return 0;
+        }
+        
+        int mid = (start+end)/2;
+        long left = getInversions(arr,start,mid);
+        long right = getInversions(arr,mid+1,end);
+        long ans = merge(arr,start,end);
+        
+        return left+right+ans;
+    }
+    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        for(int testcase=0;testcase<t;testcase++){
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            
+            for(int i=0;i<n;i++){
+                arr[i] = sc.nextInt();
+            }
+            
+            long ans = getInversions(arr,0,n-1);
+            System.out.println(ans);
+        }
+    }
+}
