@@ -1,1 +1,33 @@
+QUESTION ::
 
+Given a array of numbers representing the stock prices of a company in chronological order, write a function that calculates the maximum profit you could
+have made from buying and selling that stock once. You must buy before you sell it. For example, given [9,11,8,5,7,10], you should return 5, since you could 
+buy stocks at 5 dollars and sell it at 10 dollars.
+
+-------------------------------------------------------------************************************************---------------------------------------------
+
+SOLUTION::
+
+#Two pointer approach
+def maximum_profit(prices):
+    ## start position(index 0) of array(buy)
+    left = 0 
+    ## second position(index 1) of array(sell)
+    right = 1
+    max_profit = 0
+    ## we are checking till right is less than length of the array
+    while right < len(prices):
+        current_profit = prices[right]-prices[left]
+        if prices[left] < prices[right]:
+            max_profit = max(current_profit,max_profit)
+        else:
+            left = right 
+        right += 1
+    return max_profit
+if __name__ == '__main__':
+    prices = [9,11,8,5,7,10]
+    profit = maximum_profit(prices)
+    print(profit)
+    
+    
+    
