@@ -1,0 +1,41 @@
+QUESTION ::
+
+Implement an LRU(Least Recently used) cache.It should be able to be initialized with a cache size n, and contain following methods:
+* set(key,value): sets key to value.If there are already n items in the cache and we are adding a new item ,then it should also remove the least recently
+  used item.
+* get(key): gets the value at key. If no such key exists, return null.
+
+-----------------------------------------------------******************************************-----------------------------------------------------------
+
+SOLUTION::
+
+from collections import OrderedDict # importing orderedDic
+class LRU_Cache(object):
+
+    def __init__(self, capacity):
+        self.cacheItems = OrderedDict()    # Initializing OrderedDict
+        self.capacity = capacity
+        
+    # Retrieve item from provided key. Return -1 if nonexistent
+    def get(self, key):
+        if key in self.cacheItems:   # checking whether key is present 
+            self.cacheItems.move_to_end(key)    # moving elements to end by using python move_to_end function
+            return self.cacheItems[key] 
+        return -1    # returning -1 if key is not present
+
+     # Set the value if the key is not present in the cache. If the cache is at capacity remove the oldest item.    
+    def set(self, key, value):
+        self.cacheItems[key] = value
+        self.cacheItems.move_to_end(key)
+        if len(self.cacheItems) > self.capacity:    # checking the cache capacity
+            self.cacheItems.popitem(last=True)      # removing the oldest item
+
+our_cache = LRU_Cache(5)
+our_cache.set(1, 1);
+our_cache.set(2, 2);
+our_cache.set(3, 3);
+our_cache.set(4, 4);
+
+print(our_cache.get(1))       # returns 1
+print(our_cache.get(2))    # returns 2
+print(our_cache.get(9))     # returns -1 because 9 is not present in the cache
