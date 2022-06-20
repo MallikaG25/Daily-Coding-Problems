@@ -1,0 +1,32 @@
+QUESTION ::
+
+Implement a Queue using two stacks. Recall that a queue is a FIFO(First in First out) data structure with the following methods: enQueue, which inserts an 
+element into the queue, and dequeue, which removes it.
+
+-------------------------------------------------------------------*******************************************----------------------------------------------
+
+SOLUTION:::
+
+class Main:
+    def __init__(self):
+        self.stack1 = []
+        self.stack2 = []
+    def enQueue(self,x):
+        self.stack1.append(x)
+    def deQueue(self):
+        while self.stack1:
+            self.stack2.append(self.stack1.pop())
+        ans = self.stack2.pop()
+        while self.stack2:
+            self.stack1.append(self.stack2.pop())
+        return ans
+if __name__ == '__main__':
+    q = Main()
+    q.enQueue(1)
+    q.enQueue(2)
+    q.enQueue(3)
+ 
+    print(q.deQueue())
+    print(q.deQueue())
+    print(q.deQueue()) 
+            
